@@ -35,24 +35,56 @@ module.exports = async (server, { hdbCore, logger }) => {
     }
   });
 
-  // PUT A DATA RECORD
+  // PUT A DATA RECORD WITH ID ROUTE PARAM.
   server.route({
     url: '/:schema/:table/:id',
     method: 'PUT',
     // preValidation: hdbCore.preValidation,
-    handler: (request) => {
-      // get the object, and determine which values will need to update. no update set to null
-      request.body = {
-        operation: "update",
-        schema: `${request.params.schema}`,
-        table: `${request.params.table}`,
-        records: [request.body]
-      }
+    handler: async (request) => {
+        const patch_query_body = request.body
+        const get_table_query = {
+          body: {
+            operation: "describe_table",
+            schema: `${request.params.schema}`,
+            table: `${request.params.table}`,
+          }
+        }
+      // get the table
+        const table = await hdbCore.requestWithoutAuthentication(get_table_query)
+      // initialize and assign variable for the hash_attribute, or primary key
+        const hash_attr = table.hash_attribute
+
+      // iterate table to capture attribute names
+        for (let i = 0; i < table.attributes.length; i++) {
+          const attribute_name = table.attributes[i].attribute
+
+      // skip over these attributes
+          if (attribute_name === '__createdtime__' || attribute_name === '__updatedtime__') {
+            continue;
+          }
+      // if there's no data in current attribute, assign a null value
+          if (patch_query_body[attribute_name] === undefined) {
+            patch_query_body[attribute_name] = null;
+          }
+        }
+
+      // assign id route param to the request.body's hash_attribute value
+      patch_query_body[hash_attr] = request.params.id
+
+      // send the new record object
+        const update_query = {
+            operation: "update",
+            schema: `${request.params.schema}`,
+            table: `${request.params.table}`,
+            records: [ patch_query_body ]
+        }
+        request.body = update_query
+
       return hdbCore.requestWithoutAuthentication(request);
-    }
+      }
   });
 
-  // PATCH A DATA RECORD
+  // PATCH A DATA RECORD WITH ID ROUTE PARAM
   server.route({
     url: '/:schema/:table/:id',
     method: 'PATCH',
