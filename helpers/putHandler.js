@@ -1,22 +1,25 @@
-'use strict'
-// without access to the hdbCore methods, this cannot work here
-const putHandler = async (request) => {
-    const patch_query_body = request.body
+'use strict';
+
+const putHandler = async (request, hdbCore) => {
+    const patch_query_body = request.body;
+
     const get_table_query = {
         body: {
             operation: "describe_table",
             schema: `${request.params.schema}`,
             table: `${request.params.table}`,
         }
-    }
+    };
+
     // get the table
-    const table = await hdbCore.requestWithoutAuthentication(get_table_query)
+    const table = await hdbCore.requestWithoutAuthentication(get_table_query);
+
     // initialize and assign variable for the hash_attribute, or primary key
-    const hash_attr = table.hash_attribute
+    const hash_attr = table.hash_attribute;
 
     // iterate table to capture attribute names
     for (let i = 0; i < table.attributes.length; i++) {
-        const attribute_name = table.attributes[i].attribute
+        const attribute_name = table.attributes[i].attribute;
 
         // skip over these attributes
         if (attribute_name === '__createdtime__' || attribute_name === '__updatedtime__') {
@@ -29,7 +32,7 @@ const putHandler = async (request) => {
     }
 
     // assign id route param to the request.body's hash_attribute value
-    patch_query_body[hash_attr] = request.params.id
+    patch_query_body[hash_attr] = request.params.id;
 
     // send the new record object
     request.body = {
@@ -37,7 +40,9 @@ const putHandler = async (request) => {
         schema: `${request.params.schema}`,
         table: `${request.params.table}`,
         records: [patch_query_body]
-    }
+    };
+
+    return hdbCore.requestWithoutAuthentication(request);
 }
 
 module.exports =  putHandler

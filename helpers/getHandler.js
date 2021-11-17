@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-const getHandler = (request) => {
+const getHandler = (request, hdbCore) => {
     request.body = {
         operation: "search_by_hash",
         schema: `${request.params.schema}`,
@@ -8,6 +8,8 @@ const getHandler = (request) => {
         hash_values: [`${request.params.id}`],
         get_attributes: ["*"]
     }
+
+    return hdbCore.requestWithoutAuthentication(request);
 }
 
-module.exports = getHandler
+module.exports = getHandler;
