@@ -1,7 +1,7 @@
 'use strict';
 
 const putHandler = async (request, hdbCore) => {
-    const patch_query_body = request.body;
+    const put_query_body = request.body;
 
     const get_table_query = {
         body: {
@@ -26,20 +26,20 @@ const putHandler = async (request, hdbCore) => {
             continue;
         }
         // if there's no data in current attribute, assign a null value
-        if (patch_query_body[attribute_name] === undefined) {
-            patch_query_body[attribute_name] = null;
+        if (put_query_body[attribute_name] === undefined) {
+            put_query_body[attribute_name] = null;
         }
     }
 
     // assign id route param to the request.body's hash_attribute value
-    patch_query_body[hash_attr] = request.params.id;
+    put_query_body[hash_attr] = request.params.id;
 
     // send the new record object
     request.body = {
         operation: "update",
         schema: `${request.params.schema}`,
         table: `${request.params.table}`,
-        records: [patch_query_body]
+        records: [put_query_body]
     };
 
     return hdbCore.requestWithoutAuthentication(request);
