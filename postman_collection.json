@@ -6,52 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Get A Data",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "Abc1234!",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}:{{port}}/{{project}}/{{schema}}/{{table}}/{{get-data_id}}",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"{{project}}",
-						"{{schema}}",
-						"{{table}}",
-						"{{get-data_id}}"
-					]
-				}
-			},
-			"response": []
-		},{
 			"name": "Get All Data",
 			"event": [
 				{
@@ -66,19 +20,7 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "Abc1234!",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],
@@ -92,6 +34,30 @@
 						"{{project}}",
 						"{{schema}}",
 						"{{table}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get A Data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/{{project}}/{{schema}}/{{table}}/{{get-data_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{project}}",
+						"{{schema}}",
+						"{{table}}",
+						"{{get-data_id}}"
 					]
 				}
 			},
@@ -112,25 +78,13 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "Abc1234!",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "// post your own data object\n{\n    \"dog_name\": \"Hank\",\n    \"owner_name\": \"Terra\",\n    \"weight_lbs\": 12\n}\n",
+					"raw": "\n{\n    \"dog_name\": \"Cowboy\",\n    \"owner_name\": \"Carly\",\n    \"weight_lbs\": 20,\n    \"age\": 2,\n    \"adorable\": true,\n    \"id\": \"3acc9b54-26d2-4d17-b87d-fb033819174d\"\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -167,25 +121,13 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "Abc1234!",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "// put your own data object\n{\n    \"dog_name\": \"Leroy\",\n    \"owner_name\": \"Geena Davis\",\n    \"adorable\": true,\n    \"age\": 17,\n    \"weight_lbs\": 13\n}",
+					"raw": "\n{\n    \"dog_name\": \"Leroy\",\n    \"owner_name\": \"Geena Davis\",\n    \"adorable\": true,\n    \"age\": 2,\n    \"weight_lbs\": 13\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -223,25 +165,13 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "Abc1234!",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "// patch your own data object\n{\n    \"id\": \"f31672fe-d424-48a5-bf65-fdb68ae569a6\",\n    \"adorable\": false\n}",
+					"raw": "{\n    \"adorable\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -279,19 +209,7 @@
 			],
 			"request": {
 				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "Abc1234!",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "DELETE",
 				"header": [],
