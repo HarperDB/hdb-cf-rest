@@ -4,7 +4,7 @@ This project recipe creates a dynamic REST interface for HarperDB database, gran
 
 
 ### How to Use
-To use this template, you'll need to be logged in to be logged in, running HarperDB, have a local instance and have some data to work with.  If you don’t, please follow the steps below. I recommend following [this]("https://youtu.be/fAKZxK-XamM") video (from beginning until about 4:30) to get you through 1-3. I recommend [this]("https://youtu.be/rz6prItVJZU") demo video if you’d like a visual aid for steps 4 and 5 (pick up around 13:00 until about 15:00).
+To use this template, you'll need to be logged in, running HarperDB, have a local instance and have some data to work with.  If you don’t, please follow the steps below. I recommend following [this]("https://youtu.be/fAKZxK-XamM") video (from beginning until about 4:30) to get you through 1-3. I recommend [this]("https://youtu.be/rz6prItVJZU") demo video if you’d like a visual aid for steps 4 and 5 (pick up around 13:00 until about 15:00).
 
 1. Sign up/log in [here]("https://studio.harperdb.io/sign-up")
 2. Install and run HarperDB
